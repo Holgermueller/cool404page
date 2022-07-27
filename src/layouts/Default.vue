@@ -7,9 +7,15 @@
       <nav class="nav">
         <g-link class="nav__link" to="/">Home</g-link>
         <g-link class="nav__link" to="/about/">About</g-link>
+        <g-link class="nav__link" to="/contact">Contact</g-link>
+        <g-link class="nav__link" to="/archives/">Archives</g-link>
       </nav>
     </header>
-    <slot/>
+    <slot />
+    <footer>
+      © {{ new Date().getFullYear() }} Holger Mueller &middot; Built with
+      <a href="https://gridsome.org/" class="gridsome-link">Gridsome</a>
+    </footer>
   </div>
 </template>
 
@@ -23,9 +29,10 @@ query {
 
 <style>
 body {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  margin:0;
-  padding:0;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   line-height: 1.5;
 }
 
@@ -46,5 +53,13 @@ body {
 
 .nav__link {
   margin-left: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.gridsome-link {
+  color: blue;
 }
 </style>
