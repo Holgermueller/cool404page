@@ -9,6 +9,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^15.13.1",
     "@gridsome/source-contentful": "^0.6.0",
     "gh-pages": "^4.0.0",
     "gridsome": "^0.7.0"
