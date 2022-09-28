@@ -10,6 +10,7 @@ header {
   width: 100%;
   height: 60px;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
   background-color: black;
   color: white;
@@ -23,11 +24,9 @@ header {
 }
 
 .links {
-  top: 50%;
   width: 50%;
   padding: 8px;
-  float: right;
-  transform: translateY(-50%);
+  text-align: right;
 }
 
 .message-section {
