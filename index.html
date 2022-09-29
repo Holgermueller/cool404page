@@ -21,7 +21,7 @@
     <section class="message-section">
       <div class="message-container">
         <h1>4</h1>
-        <canvas id="canvas"></canvas>
+        <div id="canvas"></div>
         <h1>4</h1>
       </div>
       <h2>Seems like you're lost.</h2>
@@ -50,29 +50,22 @@
 
       const container = document.getElementById("canvas");
       const renderer = new THREE.WebGLRenderer();
-      renderer.setSize(container.width, container.height);
-      renderer.setClearColor(0x000000, 0);
+      renderer.setSize(250, 400, false);
+      renderer.setClearColor(0xffffff);
+
       container.appendChild(renderer.domElement);
 
-      //renderer.render(scene, camera);
-
-      const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-      const material = new THREE.MeshLambertMaterial({
-        color: 0xeef0f2,
-        opacity: 1,
-        depthTest: true,
-        depthWrite: true,
-      });
+      const geometry = new THREE.TorusGeometry(2, 0.5, 30, 100);
+      const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
       const torus = new THREE.Mesh(geometry, material);
       scene.add(torus);
-
       camera.position.z = 5;
 
       function animate() {
         requestAnimationFrame(animate);
-
-        torus.rotation.x += 0.15;
         renderer.render(scene, camera);
+
+        torus.rotation.y += 0.01;
       }
       animate();
     </script>
