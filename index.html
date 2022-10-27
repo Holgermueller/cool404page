@@ -20,9 +20,9 @@
     </header>
     <section class="message-section">
       <div class="message-container">
-        <h1>4</h1>
-        <div id="canvas"></div>
-        <h1>4</h1>
+        <p>4</p>
+        <span id="canvas"></span>
+        <p>4</p>
       </div>
       <h2>Seems like you're lost.</h2>
     </section>
@@ -40,33 +40,59 @@
     <script type="module">
       import * as THREE from "three";
 
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-      );
+      let camera, scene, renderer, torus;
 
-      const container = document.getElementById("canvas");
-      const renderer = new THREE.WebGLRenderer();
-      renderer.setSize(250, 400, false);
-      renderer.setClearColor(0xffffff);
+      function init() {
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf5f5f5);
+        scene.fog = new THREE.Fog(0x000000, 250, 1400);
 
-      container.appendChild(renderer.domElement);
+        const light = new THREE.PointLight(0xffffff, 1);
+        light.position.set(100, 100, 100);
+        scene.add(light);
 
-      const geometry = new THREE.TorusGeometry(2, 0.5, 30, 100);
-      const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
-      const torus = new THREE.Mesh(geometry, material);
-      scene.add(torus);
-      camera.position.z = 5;
+        camera = new THREE.PerspectiveCamera(80, 1, 0.1, 1000);
+
+        const container = document.getElementById("canvas");
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(300, 300);
+
+        container.appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusGeometry(2.5, 0.5, 16, 100);
+        const material = new THREE.MeshPhongMaterial({
+          color: 0x33ccff,
+          shininess: 100,
+          specular: 0x111111,
+          emissive: 0x000000,
+          flatShading: true,
+        });
+        torus = new THREE.Mesh(geometry, material);
+        torus.castShadow = true;
+        torus.receiveShadow = true;
+        scene.add(torus);
+
+        camera.position.z = 5;
+      }
 
       function animate() {
         requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-
         torus.rotation.y += 0.01;
+        torus.rotation.x += 0.01;
+
+        renderer.render(scene, camera);
       }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      window.addEventListener("resize", onWindowResize, false);
+
+      init();
       animate();
     </script>
   </body>
